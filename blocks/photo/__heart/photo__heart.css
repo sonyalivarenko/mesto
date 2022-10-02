@@ -1,0 +1,15 @@
+.photo__heart {
+  width: 22px;
+  cursor: pointer;
+  padding-right: 20px;
+}
+
+.photo__heart:hover {
+  opacity: 0.5;
+}
+
+.photo__heart:active {
+  background-image: url(../../../images/heart_black.png);
+  opacity: 1;
+  background-repeat: no-repeat;
+}

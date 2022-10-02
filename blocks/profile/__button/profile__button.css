@@ -1,0 +1,29 @@
+.profile__button {
+  box-sizing: border-box;
+  max-width: 150px;
+  max-height: 50px;
+  border: 2px solid #FFFFFF;
+  border-radius: 2px;
+  margin-top: calc(75px - 40px);
+  cursor: pointer;
+}
+
+.profile__button:hover {
+  opacity: 0.6;
+}
+
+@media screen and (max-width: 1000px) {
+  .profile__button {
+    margin-right: 19px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .profile__button {
+    margin-left: 19px;
+    margin-right: 19px;
+    max-width: 100%;
+    text-align: center;
+    margin-top: 0;
+  }
+}

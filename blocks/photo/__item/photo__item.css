@@ -1,0 +1,14 @@
+.photo__item {
+  min-height: 361px;
+  display: flex;
+  flex-direction: column;  
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@media screen and (max-width: 1000px) {
+  .photo__item {
+    max-height: 361px;
+  }
+}

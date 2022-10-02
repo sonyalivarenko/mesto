@@ -1,0 +1,26 @@
+.profile__edit {
+  box-sizing: border-box;
+  border: 1px solid #FFFFFF;
+  background: url(../../../images/Vector_pen.png);
+  background-repeat: no-repeat;
+  width: 24px;
+  height: 24px;
+  background-position: center;
+  display: inline-block;
+  margin-left: 18px;
+  align-self: center;
+  cursor: pointer;
+}
+
+.profile__edit:hover {
+  opacity: 0.6;
+}
+
+@media screen and (max-width: 500px) {
+  .profile__edit {
+    height: 18px;
+    width: 18px;
+    margin-left: 0;
+    justify-content: flex-start;
+  }
+}
