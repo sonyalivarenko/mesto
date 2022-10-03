@@ -1,18 +1,4 @@
 .popup_active {
   display: flex;
-  justify-content: center;
-  padding-top: 195px;
 }
 
-@media screen and (max-width: 1200px) {
-  .popup_active {
-    padding-top: 150px;
-  }
-}
-
-
-@media screen and (max-width: 350px) {
-  .popup_active {
-    padding-top: 123px;
-  }
-}

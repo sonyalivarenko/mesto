@@ -17,72 +17,70 @@
         <img class="profile__img" src="./images/Jacques-Yves_Cousteau.jpg" alt="Твоя аватарка">
         <div class="profile__id">
           <h1 class="profile__name">Жак-Ив Кусто</h1>
-          <button class="profile__edit"></button>
-          <h2 class="profile__job">Исследователь океана</h2>
+          <button class="profile__edit" type="button"></button>
+          <p class="profile__job">Исследователь океана</p>
         </div>
       </div>
-      <div class="profile__button">
-        <img class="profile__cross" src="./images/Vector.svg" alt="Крестик">
-      </div>
+      <button class="profile__button" type="button"></button>
     </section>
     <section class="photo">
       <ul class="photo__grid">
         <li class="photo__item">
           <img class="photo__img" alt="Замок в Карачаевске" src="./images/karachaevsk.jpg">
           <div class="photo__text">
-            <h3 class="photo__name">Карачаевск</h3>
-            <img class="photo__heart" alt="Сердечко для лайка" src="./images/Vector_heart.svg">
+            <h2 class="photo__name">Карачаевск</h2>
+            <button class="photo__heart" type="button"></button>
           </div>
         </li>
         <li class="photo__item">
           <img class="photo__img" alt="Вид на Эльбрус" src="./images/elbrus.jpg">
           <div class="photo__text">
-            <h3 class="photo__name">Гора Эльбрус</h3> 
-            <img class="photo__heart" alt="Сердечко для лайка" src="./images/Vector_heart.svg">    
+            <h2 class="photo__name">Гора Эльбрус</h2> 
+            <button class="photo__heart" type="button"></button>   
           </div>
         </li>
         <li class="photo__item">
           <img class="photo__img" alt="Вид на гору в Домбае" src="./images/dombai.jpg">
           <div class="photo__text">
-            <h3 class="photo__name">Домбай</h3>
-            <img class="photo__heart" alt="Сердечко для лайка" src="./images/Vector_heart.svg">
+            <h2 class="photo__name">Домбай</h2>
+            <button class="photo__heart" type="button"></button>
           </div>
         </li>
         <li class="photo__item">
           <img class="photo__img" alt="Вид на Эльбрус" src="./images/elbrus.jpg">
           <div class="photo__text">
-            <h3 class="photo__name">Гора Эльбрус</h3>
-            <img class="photo__heart" alt="Сердечко для лайка" src="./images/Vector_heart.svg">
+            <h2 class="photo__name">Гора Эльбрус</h2>
+            <button class="photo__heart" type="button"></button>
           </div>
         </li>
         <li class="photo__item">
           <img class="photo__img" alt="Вид на гору в Домбае" src="./images/dombai.jpg">
           <div class="photo__text">
-            <h3 class="photo__name">Домбай</h3>
-            <img class="photo__heart" alt="Сердечко для лайка" src="./images/Vector_heart.svg">
+            <h2 class="photo__name">Домбай</h2>
+            <button class="photo__heart" type="button"></button>
           </div>
         </li>
         <li class="photo__item">
           <img class="photo__img" alt="Замок в Карачаевске" src="./images/karachaevsk.jpg">
           <div class="photo__text">
-            <h3 class="photo__name">Карачаево-Черкессия</h3>
-            <img class="photo__heart" alt="Сердечко для лайка" src="./images/Vector_heart.svg">
+            <h2 class="photo__name">Карачаево-Черкессия</h2>
+            <button class="photo__heart" type="button"></button>
           </div>
         </li>
       </ul>
     </section>
-    <section class="popup">
-      <form class="popup__container">
-        <button class="popup__close"></button>
-        <h2 class="popup__title">Редактировать профиль</h2>
-        <fieldset class="popup__data">
-          <input type="text" class="popup__item popup__item_name" placeholder="Жак-Ив Кусто" required>
-          <input type="text" class="popup__item popup__item_job" placeholder="Исследователь океана" required>
-          <button class="popup__button">Сохранить</button>
-        </fieldset>
-      </form>
-    </section>
   </main>
+  <section class="popup">
+    <form class="popup__container" name="recording">
+      <button class="popup__close" type="button"></button>
+      <h2 class="popup__title">Редактировать профиль</h2>
+      <fieldset class="popup__data">
+        <input type="text" class="popup__item popup_value_name" name="name" placeholder="Жак-Ив Кусто" required>
+        <input type="text" class="popup__item popup_value_job" name="job" placeholder="Исследователь океана" required>
+        <button class="popup__button" type="submit">Сохранить</button>
+      </fieldset>
+    </form>
+  </section>
   <footer class="footer">
     <p class="footer__date">© 2020 Mesto Russia</p>
   </footer>

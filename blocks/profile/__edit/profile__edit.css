@@ -1,12 +1,12 @@
 .profile__edit {
   box-sizing: border-box;
   border: 1px solid #FFFFFF;
-  background: url(../../../images/Vector_pen.png);
+  background: url(../../../images/Vector_pen.svg);
   background-repeat: no-repeat;
   width: 24px;
   height: 24px;
   background-position: center;
-  display: inline-block;
+  display: flex;
   margin-left: 18px;
   align-self: center;
   cursor: pointer;

@@ -1,15 +1,14 @@
 const content = document.querySelector(".content");
-const popup = content.querySelector(".popup");
-const buttonClose = content.querySelector(".popup__close");
-const buttonOpen = document.querySelector(".profile__edit");
+const popup = document.querySelector(".popup");
+const buttonClose = popup.querySelector(".popup__close");
+const buttonOpen = content.querySelector(".profile__edit");
 // Находим форму в DOM
-let popupContainer = popup.querySelector(".popup__container");
-let buttonSave = popupContainer.querySelector(".popup__button");
-let nameProfile = document.querySelector(".profile__name");
-let jobProfile = document.querySelector(".profile__job");
-let nameInput = popupContainer.querySelector(".popup__item");
-let jobInput = popupContainer.querySelector(".popup__item_job");
-
+const popupContainer = popup.querySelector(".popup__container");
+const buttonSave = popupContainer.querySelector(".popup__button");
+const nameProfile = content.querySelector(".profile__name");
+const jobProfile = content.querySelector(".profile__job");
+const nameInput = popupContainer.querySelector(".popup_value_name");
+const jobInput = popupContainer.querySelector(".popup_value_job");
 
 function popupClose() {
   popup.classList.remove("popup_active");
@@ -17,6 +16,8 @@ function popupClose() {
 
 function popupOpen() {
   popup.classList.add("popup_active");
+  nameInput.value = nameProfile.textContent;
+  jobInput.value = jobProfile.textContent;
 }
 
 buttonClose.addEventListener('click', popupClose);
@@ -25,7 +26,5 @@ popupContainer.addEventListener('submit', (evt) => {
   evt.preventDefault();
   nameProfile.textContent = nameInput.value;
   jobProfile.textContent = jobInput.value;
-  nameInput.value = nameProfile.textContent;
-  jobInput.value = jobProfile.textContent;
   popup.classList.remove("popup_active");
 });

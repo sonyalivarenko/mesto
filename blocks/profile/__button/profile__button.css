@@ -1,11 +1,14 @@
 .profile__button {
+  background: url(../../../images/Vector.svg);
+  background-position: center;
   box-sizing: border-box;
-  max-width: 150px;
-  max-height: 50px;
+  min-width: 150px;
+  height: 50px;
   border: 2px solid #FFFFFF;
   border-radius: 2px;
   margin-top: calc(75px - 40px);
   cursor: pointer;
+  background-repeat: no-repeat;
 }
 
 .profile__button:hover {
@@ -21,9 +24,7 @@
 @media screen and (max-width: 500px) {
   .profile__button {
     margin-left: 19px;
-    margin-right: 19px;
-    max-width: 100%;
-    text-align: center;
     margin-top: 0;
+    background-size: 16px 16px;
   }
 }

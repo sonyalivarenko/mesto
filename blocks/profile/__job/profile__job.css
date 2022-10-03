@@ -1,4 +1,8 @@
 .profile__job {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  max-width: 336px;
   font-style: normal;
   font-weight: 400;
   font-size: 18px;
