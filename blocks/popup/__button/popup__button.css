@@ -3,7 +3,7 @@
   padding-left: 0;
   padding-right: 0;
   padding-top: 14px;
-  padding-bottom: 18px;
+  padding-bottom: 14px;
   background: #000000;
   border-radius: 2px;
   font-style: normal;
@@ -25,7 +25,5 @@
   .popup__button {
     font-size: 14px;
     line-height: 17px;
-    padding-top: 14px;
-    padding-bottom: 14px;
 }
 }

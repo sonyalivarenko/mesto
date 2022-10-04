@@ -13,14 +13,16 @@
 @media screen and (max-width: 1000px) {
   .profile__name {
     font-size: 32px;
+    max-width: 250px;
   }
 }
 
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 600px) {
   .profile__name {
     font-size: 27px;
     line-height: 33px;
     text-align: center;
     margin-left: 46px;
+    max-width: 200px;
   }
 }

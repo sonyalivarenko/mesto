@@ -10,7 +10,7 @@
   }
 }
 
-@media screen and (max-width: 1000px) {
+@media screen and (max-width: 600px) {
   .profile__img {
     align-self: center;
     margin-left: 0;
