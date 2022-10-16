@@ -1,9 +1,9 @@
 const content = document.querySelector('.content');
 const popup = document.querySelector('.popup');
-const photo = content.querySelector('.photo');
+const photoGrid = content.querySelector('.photo');
 const buttonClose = document.querySelector('.popup__close');
 const buttonOpen = content.querySelector('.profile__edit');
-const popupAddImage = document.querySelector('.popup-add-image');
+const popupAddImage = document.querySelector('.popup_add-image');
 const popupImage = document.querySelector('.popup-image');
 
 const popupContainer = popup.querySelector('.popup__container');
@@ -71,7 +71,7 @@ const createImage = (item) => {
   buttonLike.addEventListener('click', () => likeImage(element));
   elementImage.addEventListener('click', () => showImage(elementImage, elementTitle));
 
-  photo.prepend(element);
+  photoGrid.prepend(element);
 };
 
 initialCards.forEach(createImage);
