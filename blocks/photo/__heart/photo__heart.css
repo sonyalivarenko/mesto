@@ -11,7 +11,7 @@
   opacity: 0.5;
 }
 
-.photo__heart:active {
+/* .photo__heart:active {
   background-image: url(../../../images/heart_black.svg);
   opacity: 1;
-}
+} */

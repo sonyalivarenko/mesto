@@ -1,13 +1,4 @@
 .photo {
-  padding-top: 51px;
-  padding-bottom: 66px;
-}
-
-@media screen and (max-width: 1000px) {
-  .photo {
-    padding-left: 19px;
-    padding-right: 19px;
-    padding-top: 36px;
-    padding-bottom: 48px;
-  }
+  padding: 0;
+  margin: 0;
 }

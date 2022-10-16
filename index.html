@@ -23,52 +23,7 @@
       </div>
       <button class="profile__button" type="button"></button>
     </section>
-    <section class="photo">
-      <ul class="photo__grid">
-        <li class="photo__item">
-          <img class="photo__img" alt="Замок в Карачаевске" src="./images/karachaevsk.jpg">
-          <div class="photo__text">
-            <h2 class="photo__name">Карачаевск</h2>
-            <button class="photo__heart" type="button"></button>
-          </div>
-        </li>
-        <li class="photo__item">
-          <img class="photo__img" alt="Вид на Эльбрус" src="./images/elbrus.jpg">
-          <div class="photo__text">
-            <h2 class="photo__name">Гора Эльбрус</h2> 
-            <button class="photo__heart" type="button"></button>   
-          </div>
-        </li>
-        <li class="photo__item">
-          <img class="photo__img" alt="Вид на гору в Домбае" src="./images/dombai.jpg">
-          <div class="photo__text">
-            <h2 class="photo__name">Домбай</h2>
-            <button class="photo__heart" type="button"></button>
-          </div>
-        </li>
-        <li class="photo__item">
-          <img class="photo__img" alt="Вид на Эльбрус" src="./images/elbrus.jpg">
-          <div class="photo__text">
-            <h2 class="photo__name">Гора Эльбрус</h2>
-            <button class="photo__heart" type="button"></button>
-          </div>
-        </li>
-        <li class="photo__item">
-          <img class="photo__img" alt="Вид на гору в Домбае" src="./images/dombai.jpg">
-          <div class="photo__text">
-            <h2 class="photo__name">Домбай</h2>
-            <button class="photo__heart" type="button"></button>
-          </div>
-        </li>
-        <li class="photo__item">
-          <img class="photo__img" alt="Замок в Карачаевске" src="./images/karachaevsk.jpg">
-          <div class="photo__text">
-            <h2 class="photo__name">Карачаево-Черкессия</h2>
-            <button class="photo__heart" type="button"></button>
-          </div>
-        </li>
-      </ul>
-    </section>
+    <div class="photo photo__grid"></div>
   </main>
   <section class="popup">
     <div class="popup__container">
@@ -83,6 +38,36 @@
       </form>
     </div>
   </section>
+  <section class="popup-add-image">
+    <div class="popup__container">
+      <button class="popup__close" type="button"></button>
+      <h2 class="popup__title">Новое место</h2>
+      <form class="popup__form popup__form_add" name="create_image">
+        <fieldset class="popup__data">
+          <input type="text" class="popup__item popup__item_value_title" name="title" placeholder="Название" required>
+          <input type="text" class="popup__item popup__item_value_url" name="url" placeholder="Ссылка на картинку" required>
+          <button class="popup__button" type="submit">Создать</button>
+        </fieldset>
+      </form>
+    </div>
+  </section>
+  <section class="popup-image">
+    <div class="popup-image__container">
+      <button class="popup-image__close" type="button"></button>
+      <img class="popup-image__content" src="#" alt="">
+      <p class="popup-image__name"></p>
+    </div>
+  </section>
+  <template id="photo-template">
+      <div class="photo__item">
+        <img class="photo__img">
+        <button class="photo__button-delete"></button>
+        <div class="photo__text">
+          <h2 class="photo__name"></h2>
+          <button class="photo__heart" type="button"></button>
+        </div>
+      </div>
+  </template>
   <footer class="footer">
     <p class="footer__date">© 2020 Mesto Russia</p>
   </footer>

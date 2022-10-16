@@ -1,0 +1,14 @@
+.photo__button-delete {
+  position: absolute;
+  background: url(../../../images/Trash.svg);
+  width: 18px;
+  height: 19px;
+  border: none;
+  top: 20px;
+  right: 20px;
+  cursor: pointer;
+}
+
+.photo__button-delete:hover {
+  opacity: 0.6;
+}

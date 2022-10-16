@@ -1,0 +1,7 @@
+.photo__heart_active {
+  background-image: url(../../../../images/heart_black.svg);
+}
+
+.photo__heart_active:hover {
+  opacity: 1;
+}
