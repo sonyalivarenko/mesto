@@ -1,9 +1,9 @@
 const content = document.querySelector('.content');
-const popup = document.querySelector('.popup');
+const popup = document.querySelector('.popup-recording');
 const photoGrid = content.querySelector('.photo');
 const buttonClose = document.querySelector('.popup__close');
 const buttonOpen = content.querySelector('.profile__edit');
-const popupAddImage = document.querySelector('.popup_add-image');
+const popupAddImage = document.querySelector('.popup-add-image');
 const popupImage = document.querySelector('.popup-image');
 
 const popupContainer = popup.querySelector('.popup__container');
@@ -53,11 +53,10 @@ const initialCards = [
   }
 ];
 
-const photoTemplate = document.querySelector('#photo-template').content.querySelector('.photo__item');
-
 //вставка картинок из массива
 const createImage = (item) => {
-  const element = photoTemplate.cloneNode(true);
+  const photoTemplate = document.querySelector('#photo-template').content;
+  const element = photoTemplate.querySelector('.photo__item').cloneNode(true);
   const elementTitle = element.querySelector('.photo__name');
   const elementImage = element.querySelector('.photo__img');
   const buttonDelete = element.querySelector('.photo__button-delete');
@@ -70,24 +69,26 @@ const createImage = (item) => {
   buttonDelete.addEventListener('click', () => removeImage(element));
   buttonLike.addEventListener('click', () => likeImage(element));
   elementImage.addEventListener('click', () => showImage(elementImage, elementTitle));
-
-  photoGrid.prepend(element);
+  return element;
 };
 
-initialCards.forEach(createImage);
+function addImage(item) {
+  photoGrid.prepend(createImage(item));
+};
+
+initialCards.forEach(addImage);
+
 
 // закрытие попапов
-function popupClose() {
+function popupClose(popup) {
   popup.classList.remove('popup_active');
-  popupAddImage.classList.remove('popup_active');
-  popupImage.classList.remove('popup_active');
 } 
 
 //открытие попапа для задания имени
-function popupOpen() {
-  popup.classList.add('popup_active');
+function popupOpen(popup) {
   nameInput.value = nameProfile.textContent;
   jobInput.value = jobProfile.textContent;
+  popup.classList.add('popup_active');
 } 
 
 // сохранить имя и профессию профиля
@@ -95,7 +96,7 @@ function popupOpen() {
    evt.preventDefault();
    nameProfile.textContent = nameInput.value;
    jobProfile.textContent = jobInput.value;
-   popupClose();
+   popupClose(popup);
  }
  
 // создание новой картинки
@@ -105,17 +106,12 @@ function popupOpen() {
   const newImageTitle = titleInput.value;
   const newImageLink = urlInput.value;
 
-   createImage({
+   addImage({
       name: newImageTitle,
       link: newImageLink
     });
 
-  popupClose();
-};
-
- // открыть попап добавления картинки
-function popupAdd() { 
-  popupAddImage.classList.add('popup_active');
+  popupClose(popupAddImage);
 };
 
 // поставить лайк
@@ -126,9 +122,10 @@ function likeImage(element) {
 
 // показать картинку увеличенную
 function showImage(elementImage, elementTitle) {
-  popupImage.classList.add('popup_active');
   bigImage.src = elementImage.src;
   bigImageName.textContent = elementTitle.textContent;
+  bigImage.alt = elementImage.alt;
+  popupOpen(popupImage);
 };
 
 // удалить картинку
@@ -137,13 +134,12 @@ function removeImage(element) {
 };
 
 
-buttonClose.addEventListener('click', popupClose);
-buttonAddClose.addEventListener('click', popupClose);
-buttonCloseImage.addEventListener('click',popupClose);
+buttonClose.addEventListener('click', () => popupClose(popup));
+buttonAddClose.addEventListener('click', () => popupClose(popupAddImage));
+buttonCloseImage.addEventListener('click', () => popupClose(popupImage));
 
-buttonOpen.addEventListener('click', popupOpen);
-buttonAdd.addEventListener('click', popupAdd);
+buttonOpen.addEventListener('click', () => popupOpen(popup));
+buttonAdd.addEventListener('click', () => popupOpen(popupAddImage));
 
 popupForm.addEventListener('submit', formSubmitHandler);
 popupFormAdd.addEventListener('submit', formAddHandler);
-
