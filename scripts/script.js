@@ -86,8 +86,6 @@ function popupClose(popup) {
 
 //открытие попапа для задания имени
 function popupOpen(popup) {
-  nameInput.value = nameProfile.textContent;
-  jobInput.value = jobProfile.textContent;
   popup.classList.add('popup_active');
 } 
 
@@ -105,6 +103,8 @@ function popupOpen(popup) {
 
   const newImageTitle = titleInput.value;
   const newImageLink = urlInput.value;
+  titleInput.value = '';
+  urlInput.value = '';
 
    addImage({
       name: newImageTitle,
@@ -133,12 +133,18 @@ function removeImage(element) {
   element.remove();
 };
 
+function addName (popup) {
+  nameInput.value = nameProfile.textContent;
+  jobInput.value = jobProfile.textContent;
+  popupOpen(popup);
+}
+
 
 buttonClose.addEventListener('click', () => popupClose(popup));
 buttonAddClose.addEventListener('click', () => popupClose(popupAddImage));
 buttonCloseImage.addEventListener('click', () => popupClose(popupImage));
 
-buttonOpen.addEventListener('click', () => popupOpen(popup));
+buttonOpen.addEventListener('click', () => addName(popup));
 buttonAdd.addEventListener('click', () => popupOpen(popupAddImage));
 
 popupForm.addEventListener('submit', formSubmitHandler);
