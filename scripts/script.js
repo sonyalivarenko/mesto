@@ -103,8 +103,6 @@ function popupOpen(popup) {
 
   const newImageTitle = titleInput.value;
   const newImageLink = urlInput.value;
-  titleInput.value = '';
-  urlInput.value = '';
 
    addImage({
       name: newImageTitle,
@@ -112,6 +110,9 @@ function popupOpen(popup) {
     });
 
   popupClose(popupAddImage);
+
+  titleInput.value = '';
+  urlInput.value = '';
 };
 
 // поставить лайк
