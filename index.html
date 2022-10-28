@@ -38,14 +38,16 @@
       </div>
     </div>
   </template>
-  <section class="popup popup-recording">
+  <section class=" popup-recording popup">
     <div class="popup__container">
       <button class="popup__close" type="button"></button>
       <h2 class="popup__title">Редактировать профиль</h2>
-      <form class="popup__form" name="recording">
+      <form class="popup__form" name="recording" novalidate>
         <fieldset class="popup__data">
-          <input type="text" class="popup__item popup__item_value_name" name="name" placeholder="Жак-Ив Кусто" required>
-          <input type="text" class="popup__item popup__item_value_job" name="job" placeholder="Исследователь океана" required>
+          <input type="text" class="popup__item popup__item_value_name" id="popup__item-name" name="name" placeholder="Жак-Ив Кусто" required minlength="2" maxlength="40">
+          <span class="popup__item-error popup__item-name-error"></span>
+          <input type="text" class="popup__item popup__item_value_job" id="popup__item-job" name="job" placeholder="Исследователь океана" required minlength="2" maxlength="200">
+          <span class="popup__item-error popup__item-job-error"></span>
           <button class="popup__button" type="submit">Сохранить</button>
         </fieldset>
       </form>
@@ -55,10 +57,12 @@
     <div class="popup__container">
       <button class="popup__close" type="button"></button>
       <h2 class="popup__title">Новое место</h2>
-      <form class="popup__form popup__form_add" name="create_image">
+      <form class="popup__form popup__form_add" name="create_image" novalidate>
         <fieldset class="popup__data">
-          <input type="text" class="popup__item popup__item_value_title" name="title" placeholder="Название" required>
-          <input type="text" class="popup__item popup__item_value_url" name="url" placeholder="Ссылка на картинку" required>
+          <input type="text" class="popup__item popup__item_value_title" id="popup__item-title" name="title" placeholder="Название" required minlength="2" maxlength="30">
+          <span class="popup__item-error popup__item-title-error"></span>
+          <input type="url" class="popup__item popup__item_value_url" id="popup__item-url" name="url" placeholder="Ссылка на картинку" required>
+          <span class="popup__item-error popup__item-url-error"></span>
           <button class="popup__button" type="submit">Создать</button>
         </fieldset>
       </form>
@@ -72,5 +76,6 @@
     </div>
   </section>
   <script src="./scripts/script.js"></script>
+  <script src="./scripts/validate.js"></script>
 </body>
 </html>

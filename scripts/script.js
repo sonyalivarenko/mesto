@@ -1,12 +1,12 @@
 const content = document.querySelector('.content');
-const popup = document.querySelector('.popup-recording');
+const popupRecording = document.querySelector('.popup-recording');
 const photoGrid = content.querySelector('.photo');
 const buttonClose = document.querySelector('.popup__close');
 const buttonOpen = content.querySelector('.profile__edit');
 const popupAddImage = document.querySelector('.popup-add-image');
 const popupImage = document.querySelector('.popup-image');
 
-const popupContainer = popup.querySelector('.popup__container');
+const popupContainer = popupRecording.querySelector('.popup__container');
 const popupForm = popupContainer.querySelector('.popup__form');
 const buttonSave = popupContainer.querySelector('.popup__button');
 
@@ -22,6 +22,7 @@ const buttonAddClose = popupAddImage.querySelector('.popup__close');
 const titleInput = popupContainerAdd.querySelector('.popup__item_value_title');
 const urlInput = popupContainerAdd.querySelector('.popup__item_value_url');
 
+const bigImageContainer = popupImage.querySelector('.popup-image__container');
 const bigImage = popupImage.querySelector('.popup-image__content');
 const bigImageName = popupImage.querySelector('.popup-image__name');
 const buttonCloseImage = popupImage.querySelector('.popup-image__close');
@@ -72,6 +73,7 @@ const createImage = (item) => {
   return element;
 };
 
+// добавление картинки на сайт
 function addImage(item) {
   photoGrid.prepend(createImage(item));
 };
@@ -94,7 +96,7 @@ function popupOpen(popup) {
    evt.preventDefault();
    nameProfile.textContent = nameInput.value;
    jobProfile.textContent = jobInput.value;
-   popupClose(popup);
+   popupClose(popupRecording);
  }
  
 // создание новой картинки
@@ -134,19 +136,66 @@ function removeImage(element) {
   element.remove();
 };
 
+// открыть форму редактирования имени, автоматически подставляя значение из основного окна
 function addName (popup) {
   nameInput.value = nameProfile.textContent;
   jobInput.value = jobProfile.textContent;
   popupOpen(popup);
 }
 
+// "слушатель" нажатия на клавишу Esc
+function keyHandler(evt) {
+  const popupArray = Array.from(document.querySelectorAll('.popup'));
+  if (evt.key === 'Escape') {
+    popupArray.forEach((popupElement) => {
+      popupClose(popupElement);
+    });
+  }
+}
 
-buttonClose.addEventListener('click', () => popupClose(popup));
-buttonAddClose.addEventListener('click', () => popupClose(popupAddImage));
-buttonCloseImage.addEventListener('click', () => popupClose(popupImage));
+popupRecording.addEventListener('click', (evt) => {
+  if (!popupContainer.contains(evt.target) || (buttonClose === evt.target)) {
+    popupClose(popupRecording);
+  }
+});
 
-buttonOpen.addEventListener('click', () => addName(popup));
-buttonAdd.addEventListener('click', () => popupOpen(popupAddImage));
+popupAddImage.addEventListener('click', (evt) => {
+  if (!popupContainerAdd.contains(evt.target) || (buttonAddClose === evt.target)){
+    popupClose(popupAddImage);
+  }
+});
+
+popupImage.addEventListener('click', (evt) => {
+  if (!bigImageContainer.contains(evt.target) || (buttonCloseImage === evt.target)){
+    popupClose(popupImage);
+  }
+});
+
+buttonOpen.addEventListener('click', () => {
+  addName(popupRecording);
+  enableValidation({
+    formSelector: '.popup__form',
+    inputSelector: '.popup__item',
+    submitButtonSelector: '.popup__button',
+    inactiveButtonClass: 'popup__button_inactive',
+    inputErrorClass: 'popup__item_type_error',
+    errorClass: 'popup__item-error_active'
+  });
+});
+
+document.addEventListener('keydown', keyHandler);
+
+buttonAdd.addEventListener('click', () => {
+  popupOpen(popupAddImage);
+  enableValidation({
+    formSelector: '.popup__form',
+    inputSelector: '.popup__item',
+    submitButtonSelector: '.popup__button',
+    inactiveButtonClass: 'popup__button_inactive',
+    inputErrorClass: 'popup__item_type_error',
+    errorClass: 'popup__item-error_active'
+  });
+});
 
 popupForm.addEventListener('submit', formSubmitHandler);
 popupFormAdd.addEventListener('submit', formAddHandler);
