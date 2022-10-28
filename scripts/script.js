@@ -1,14 +1,13 @@
 const content = document.querySelector('.content');
 const popupRecording = document.querySelector('.popup-recording');
 const photoGrid = content.querySelector('.photo');
-const buttonClose = document.querySelector('.popup__close');
-const buttonOpen = content.querySelector('.profile__edit');
+const buttonCloseRecording = popupRecording.querySelector('.popup__close');
+const buttonOpenRecording = content.querySelector('.profile__edit');
 const popupAddImage = document.querySelector('.popup-add-image');
 const popupImage = document.querySelector('.popup-image');
 
 const popupContainer = popupRecording.querySelector('.popup__container');
-const popupForm = popupContainer.querySelector('.popup__form');
-const buttonSave = popupContainer.querySelector('.popup__button');
+const popupFormRecording = popupContainer.querySelector('.popup__form');
 
 const nameProfile = content.querySelector('.profile__name');
 const jobProfile = content.querySelector('.profile__job');
@@ -54,6 +53,8 @@ const initialCards = [
   }
 ];
 
+
+
 //вставка картинок из массива
 const createImage = (item) => {
   const photoTemplate = document.querySelector('#photo-template').content;
@@ -69,7 +70,9 @@ const createImage = (item) => {
  
   buttonDelete.addEventListener('click', () => removeImage(element));
   buttonLike.addEventListener('click', () => likeImage(element));
-  elementImage.addEventListener('click', () => showImage(elementImage, elementTitle));
+  elementImage.addEventListener('click', () => {
+    showImage(elementImage, elementTitle);
+  });
   return element;
 };
 
@@ -83,12 +86,14 @@ initialCards.forEach(addImage);
 
 // закрытие попапов
 function popupClose(popup) {
-  popup.classList.remove('popup_active');
+  popup.classList.remove('popup_active'); 
+  document.removeEventListener('keydown', keyHandler);
 } 
 
 //открытие попапа для задания имени
 function popupOpen(popup) {
   popup.classList.add('popup_active');
+  document.addEventListener('keydown', keyHandler);
 } 
 
 // сохранить имя и профессию профиля
@@ -137,24 +142,23 @@ function removeImage(element) {
 };
 
 // открыть форму редактирования имени, автоматически подставляя значение из основного окна
-function addName (popup) {
+function addNameHandler (popup) {
   nameInput.value = nameProfile.textContent;
   jobInput.value = jobProfile.textContent;
   popupOpen(popup);
 }
 
 // "слушатель" нажатия на клавишу Esc
-function keyHandler(evt) {
-  const popupArray = Array.from(document.querySelectorAll('.popup'));
+function keyHandler(evt) {  
   if (evt.key === 'Escape') {
-    popupArray.forEach((popupElement) => {
-      popupClose(popupElement);
-    });
+    popup = document.querySelector('.popup_active');
+    popupClose(popup);
+      
   }
 }
 
 popupRecording.addEventListener('click', (evt) => {
-  if (!popupContainer.contains(evt.target) || (buttonClose === evt.target)) {
+  if (!popupContainer.contains(evt.target) || (buttonCloseRecording === evt.target)) {
     popupClose(popupRecording);
   }
 });
@@ -171,31 +175,23 @@ popupImage.addEventListener('click', (evt) => {
   }
 });
 
-buttonOpen.addEventListener('click', () => {
-  addName(popupRecording);
-  enableValidation({
-    formSelector: '.popup__form',
-    inputSelector: '.popup__item',
-    submitButtonSelector: '.popup__button',
-    inactiveButtonClass: 'popup__button_inactive',
-    inputErrorClass: 'popup__item_type_error',
-    errorClass: 'popup__item-error_active'
-  });
+buttonOpenRecording.addEventListener('click', () => {
+  addNameHandler(popupRecording);
 });
-
-document.addEventListener('keydown', keyHandler);
 
 buttonAdd.addEventListener('click', () => {
   popupOpen(popupAddImage);
-  enableValidation({
-    formSelector: '.popup__form',
-    inputSelector: '.popup__item',
-    submitButtonSelector: '.popup__button',
-    inactiveButtonClass: 'popup__button_inactive',
-    inputErrorClass: 'popup__item_type_error',
-    errorClass: 'popup__item-error_active'
-  });
 });
 
-popupForm.addEventListener('submit', formSubmitHandler);
+popupFormRecording.addEventListener('submit', formSubmitHandler);
 popupFormAdd.addEventListener('submit', formAddHandler);
+
+enableValidation({
+  formSelector: '.popup__form',
+  inputSelector: '.popup__item',
+  submitButtonSelector: '.popup__button',
+  inactiveButtonClass: 'popup__button_inactive',
+  inputErrorClass: 'popup__item_type_error',
+  errorClass: 'popup__item-error_active'
+});
+

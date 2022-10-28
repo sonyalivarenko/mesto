@@ -17,7 +17,7 @@ const setEventListeners = (formElement, inputList, buttonElement, inactiveButton
   inputList.forEach((inputElement) => {
     const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
     inputElement.addEventListener('input', function () {
-      checkInputValidity(formElement, inputElement, errorElement, inputErrorClass, errorClass);
+      checkInputValidity(inputElement, errorElement, inputErrorClass, errorClass);
       toggleButtonState(inputList, buttonElement, inactiveButtonClass);
     });
   });
@@ -27,9 +27,11 @@ const setEventListeners = (formElement, inputList, buttonElement, inactiveButton
 function toggleButtonState(inputList, buttonElement, inactiveButtonClass) {
   if (hasInvalidInput(inputList)) {
     buttonElement.classList.add(inactiveButtonClass);
+    buttonElement.disabled = true;
   }
   else {
     buttonElement.classList.remove(inactiveButtonClass);
+    buttonElement.disabled = false;
   }
 }
 
@@ -40,24 +42,25 @@ function hasInvalidInput(inputList) {
  })};
 
 // показывает ошибку инпута, если данные введены неккоректно
-const checkInputValidity = (formElement, inputElement, errorElement, inputErrorClass, errorClass) => {
+const checkInputValidity = (inputElement, errorElement, inputErrorClass, errorClass) => {
   if (!inputElement.validity.valid) {
-    showInputError(formElement, inputElement, inputElement.validationMessage, errorElement, inputErrorClass, errorClass);
+    showInputError(inputElement, inputElement.validationMessage, errorElement, inputErrorClass, errorClass);
   } else {
-    hideInputError(formElement, inputElement, errorElement, inputErrorClass, errorClass);
+    hideInputError(inputElement, errorElement, inputErrorClass, errorClass);
   }
 };
 
 // функция, стилизующая ошибку для инпута
-const showInputError = (formElement, inputElement, errorMessage, errorElement, inputErrorClass, errorClass) => {
+const showInputError = (inputElement, errorMessage, errorElement, inputErrorClass, errorClass) => {
   inputElement.classList.add(inputErrorClass);
   errorElement.textContent = errorMessage;
   errorElement.classList.add(errorClass);
 };
 
 //функция, удаляющая ошибку для инпута
-const hideInputError = (formElement, inputElement, errorElement, inputErrorClass, errorClass) => {
+const hideInputError = (inputElement, errorElement, inputErrorClass, errorClass) => {
   inputElement.classList.remove(inputErrorClass);
   errorElement.classList.remove(errorClass);
   errorElement.textContent = '';
 };
+
