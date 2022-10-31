@@ -122,8 +122,7 @@ function popupOpen(popup) {
   titleInput.value = '';
   urlInput.value = '';
 
-  buttonImageSave.classList.add('popup__button_inactive');
-  buttonImageSave.disabled = true;
+  disableSubmitButton(buttonImageSave);
 };
 
 // поставить лайк

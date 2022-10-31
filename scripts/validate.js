@@ -26,8 +26,7 @@ const setEventListeners = (formElement, inputList, buttonElement, inactiveButton
 // функция делает кнопку активной/неактивной
 function toggleButtonState(inputList, buttonElement, inactiveButtonClass) {
   if (hasInvalidInput(inputList)) {
-    buttonElement.classList.add(inactiveButtonClass);
-    buttonElement.disabled = true;
+    disableSubmitButton(buttonElement);
   }
   else {
     buttonElement.classList.remove(inactiveButtonClass);
@@ -64,3 +63,7 @@ const hideInputError = (inputElement, errorElement, inputErrorClass, errorClass)
   errorElement.textContent = '';
 };
 
+const disableSubmitButton = (buttonElement) => {
+    buttonElement.classList.add('popup__button_inactive');
+    buttonElement.disabled = true;
+}
