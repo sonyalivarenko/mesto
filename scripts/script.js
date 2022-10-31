@@ -110,6 +110,7 @@ function popupOpen(popup) {
 
   const newImageTitle = titleInput.value;
   const newImageLink = urlInput.value;
+  const buttonImageSave = popupAddImage.querySelector('.popup__button');
 
    addImage({
       name: newImageTitle,
@@ -120,6 +121,9 @@ function popupOpen(popup) {
 
   titleInput.value = '';
   urlInput.value = '';
+
+  buttonImageSave.classList.add('popup__button_inactive');
+  buttonImageSave.disabled = true;
 };
 
 // поставить лайк
