@@ -1,8 +1,14 @@
 .popup__item-error {
+  min-height: 30px;
   font-style: normal;
   font-weight: 400;
   font-size: 12px;
   line-height: 15px;
   color: #FF0000;
   opacity: 0;
+}
+
+
+.popup__item-error:last-of-type {
+  margin-bottom: 18px;
 }

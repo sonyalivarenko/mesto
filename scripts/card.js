@@ -1,7 +1,7 @@
 export default class Card {
-  constructor (data, selector, popupOpen) {
+  constructor (data, selector, handleOpenPopup) {
     this._selector = selector;
-    this._popupOpen = popupOpen;
+    this._handleOpenPopup = handleOpenPopup;
     this._name = data.name;
     this._link = data.link;
 
@@ -19,26 +19,15 @@ export default class Card {
     like.classList.toggle('photo__heart_active');
   }
 
-  _showImage() {
-    const popupImage = document.querySelector('.popup-image');
-    const bigImage = popupImage.querySelector('.popup-image__content');
-    const bigImageName = popupImage.querySelector('.popup-image__name');
-    bigImage.src = this._link;
-    bigImageName.textContent = this._name;
-    bigImage.alt = this._link;
-    this._popupOpen(popupImage);
-  };
-
   _removeImage() {
     this._element.remove();
   };
 
   _setEventListeners() {
-    
     this._buttonDelete.addEventListener('click', () => this._removeImage());
     this._buttonLike.addEventListener('click', () => this._likeImage());
     this._photoImage.addEventListener('click', () => {
-      this._showImage()
+      this._handleOpenPopup(this._name, this._link)
     });
   }
 
