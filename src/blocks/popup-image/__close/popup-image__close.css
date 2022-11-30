@@ -1,0 +1,22 @@
+.popup-image__close { 
+  left: 810px;
+}
+
+@media screen and (max-width: 1100px) {
+  .popup-image__close {
+    left: 570px;
+}
+}
+
+@media screen and (max-width: 600px) {
+  .popup-image__close {
+    top: -36px;
+    left: 340px;
+}
+}
+
+@media screen and (max-width: 400px) {
+  .popup-image__close {
+    left: 240px;
+}
+}

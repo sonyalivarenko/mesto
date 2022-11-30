@@ -1,7 +1,7 @@
 export default class Card {
-  constructor (data, selector, handleOpenPopup) {
+  constructor (data, selector, handleCardClick) {
     this._selector = selector;
-    this._handleOpenPopup = handleOpenPopup;
+    this._handleCardClick = handleCardClick;
     this._name = data.name;
     this._link = data.link;
 
@@ -26,12 +26,11 @@ export default class Card {
   _setEventListeners() {
     this._buttonDelete.addEventListener('click', () => this._removeImage());
     this._buttonLike.addEventListener('click', () => this._likeImage());
-    this._photoImage.addEventListener('click', () => {
-      this._handleOpenPopup(this._name, this._link)
-    });
+    // this._photoImage.addEventListener('click', () => {
+    this._handleCardClick(this._name, this._link, this._photoImage);
   }
 
-  _createImage() {
+  _fillImage() {
     this._photoTitle.textContent = this._name;
     this._photoImage.src = this._link;
     this._photoImage.alt = this._name;
@@ -45,7 +44,7 @@ export default class Card {
       this._buttonDelete = this._element.querySelector('.photo__button-delete');
       this._buttonLike = this._element.querySelector('.photo__heart');
   
-      this._createImage();
+      this._fillImage();
       this._setEventListeners();
       return this._element;
     }

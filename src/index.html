@@ -5,16 +5,16 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mesto</title>
-  <link rel="stylesheet" href="./pages/index.css">
+  <!-- <link rel="stylesheet" href="./pages/index.css"> -->
 </head>
 <body class="page">
   <header class="header">
-    <img class="header__logo" src="./images/Vector_logo.svg" alt="Векторный логотип">
+    <img class="header__logo" src="<%=require('./images/Vector_logo.svg')%>" alt="Векторный логотип">
   </header>
   <main class="content">
     <section class="profile">
       <div class="profile__info">
-        <img class="profile__img" src="./images/Jacques-Yves_Cousteau.jpg" alt="Твоя аватарка">
+        <img class="profile__img" src="<%=require('./images/Jacques-Yves_Cousteau.jpg')%>" alt="Твоя аватарка">
         <div class="profile__id">
           <h1 class="profile__name">Жак-Ив Кусто</h1>
           <button class="profile__edit" type="button"></button>
@@ -70,11 +70,11 @@
   </section>
   <section class="popup popup-image">
     <div class="popup-image__container">
-      <button class="popup-image__close" type="button"></button>
+      <button class="popup__close popup-image__close" type="button"></button>
       <img class="popup-image__content" src="#" alt="">
       <p class="popup-image__name"></p>
     </div>
   </section>
-  <script type="module" src="./scripts/index.js"></script>
+  <!-- <script type="module" src="./scripts/index.js"></script> -->
 </body>
 </html>
