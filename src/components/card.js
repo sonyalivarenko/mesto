@@ -26,8 +26,9 @@ export default class Card {
   _setEventListeners() {
     this._buttonDelete.addEventListener('click', () => this._removeImage());
     this._buttonLike.addEventListener('click', () => this._likeImage());
-    // this._photoImage.addEventListener('click', () => {
-    this._handleCardClick(this._name, this._link, this._photoImage);
+    this._photoImage.addEventListener('click', () => {
+      this._handleCardClick(this._name, this._link)
+    });//7
   }
 
   _fillImage() {

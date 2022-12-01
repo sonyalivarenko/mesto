@@ -1,11 +1,10 @@
-import './pages/index.css'
-import Card from './components/card.js';
-import FormValidator from './components/FormValidator.js';
-import Section from './components/Section.js';
-import Popup from './components/Popup.js'; 
-import PopupWithImage from './components/PopupWithImage.js';
-import UserInfo from './components/UserInfo.js';
-import PopupWithForm from './components/PopupWithForm.js'; 
+import './index.css'
+import Card from '../components/card.js';
+import FormValidator from '../components/FormValidator.js';
+import Section from '../components/Section.js';
+import PopupWithImage from '../components/PopupWithImage.js';
+import UserInfo from '../components/UserInfo.js';
+import PopupWithForm from '../components/PopupWithForm.js'; 
 import {
   buttonOpenRecording,
   popupFormRecording,
@@ -14,7 +13,7 @@ import {
   popupFormAdd,
   buttonAdd,
   initialCards
-} from './utils/constants.js'
+} from '../utils/constants.js'
 
 const photoList = new Section({
   items: initialCards,
@@ -29,23 +28,20 @@ const userInfo = new UserInfo({nameProfile: '.profile__name', jobProfile: '.prof
 
 const popupRecording = new PopupWithForm('.popup-recording', {
   handleFormSubmit: (data) => {
-    nameInput.value = data.name;
-    jobInput.value = data.job;
-    userInfo.setUserInfo([nameInput, jobInput]);
+/*     nameInput.value = data.name;
+    jobInput.value = data.job; */
+    userInfo.setUserInfo({nameInput: data.name,
+                          jobInput: data.job}); //5
     popupRecording.close()
   }
 });
 
 const popupAddImage = new PopupWithForm('.popup-add-image', {
-  handleFormSubmit: (data) => {
-    const newImageTitle = data.title;
-    const newImageLink = data.url;
-  
+  handleFormSubmit: (data) => { 
     addImage({
-      name: newImageTitle,
-      link: newImageLink
-    }, photoList);
-    
+      name: data.title,
+      link: data.url
+    }, photoList); 
     popupAddImage.close();
     validationFormAddImage.disableSubmitButton();
   }
@@ -56,16 +52,15 @@ function addImage(element, photoList) {
   photoList.addItem(photoElement);
 };
 
-const popupImage = new Popup('.popup-image');
+const popupImage = new PopupWithImage('.popup-image');
 
-function handleCardClick(name, link, photoImage) {
-  photoImage.addEventListener('click', () => {
-  return new PopupWithImage({name,link}, '.popup-image').handleOpenPopup();
-  })
+function handleCardClick(name, link) {
+  return popupImage.handleOpenPopup({name,link}); //3
 }
 
 function addNameHandler (popup) {
-  [nameInput.value, jobInput.value] = userInfo.getUserInfo();
+  nameInput.value = userInfo.getUserInfo().nameInput;
+  jobInput.value = userInfo.getUserInfo().jobInput;//4
   popup.open();
 };
 
