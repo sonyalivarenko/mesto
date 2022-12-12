@@ -5,6 +5,8 @@ import Section from '../components/Section.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import UserInfo from '../components/UserInfo.js';
 import PopupWithForm from '../components/PopupWithForm.js'; 
+import PopupWithDeleteImage from '../components/PopupWithDeleteImage';
+import Api from '../components/Api';
 import {
   buttonOpenRecording,
   popupFormRecording,
@@ -12,29 +14,56 @@ import {
   jobInput,
   popupFormAdd,
   buttonAdd,
+  avatarBox,
+  avatar,
+  popupFormAvatar,
+  //authorization,
+  //cohortId,
   initialCards
-} from '../utils/constants.js'
+} from '../utils/constants.js';
+
+const api = new Api({
+  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-56',
+  headers: {
+    authorization: 'bc468cad-c22d-4fac-9dee-cf289e7f43c5',
+    'Content-Type': 'application/json'
+  }
+});
+
+api.getInitialCards()
+  .then((result) => {
+    //res = JSON.parse(result);
+    photoList.renderItems(result);
+  })
+  .catch((err) => {
+    console.log(err); // выведем ошибку в консоль
+  });
 
 const photoList = new Section({
-  items: initialCards,
   renderer: (element) => {
     addImage(element, photoList)
   }
 }, '.photo');
 
-photoList.renderItems();
+
 
 const userInfo = new UserInfo({nameProfile: '.profile__name', jobProfile: '.profile__job'});
 
 const popupRecording = new PopupWithForm('.popup-recording', {
   handleFormSubmit: (data) => {
-/*     nameInput.value = data.name;
-    jobInput.value = data.job; */
     userInfo.setUserInfo({nameInput: data.name,
                           jobInput: data.job}); //5
     popupRecording.close()
   }
 });
+
+const popupAvatar = new PopupWithForm('.popup-avatar', {
+  handleFormSubmit: (data) => {
+    addAvatar({link: data.avatar});
+    popupAvatar.close();
+    validationFormAvatar.disableSubmitButton();
+  }
+})
 
 const popupAddImage = new PopupWithForm('.popup-add-image', {
   handleFormSubmit: (data) => { 
@@ -47,12 +76,31 @@ const popupAddImage = new PopupWithForm('.popup-add-image', {
   }
 });
 
+function addAvatar({link}) {
+  avatar.src = link; 
+}
+
 function addImage(element, photoList) {
-  const photoElement = new Card(element, '#photo-template', handleCardClick).generate();
+  const photoElement = new Card(element, '#photo-template', handleCardClick, handleCardDelete).generate();
   photoList.addItem(photoElement);
 };
 
 const popupImage = new PopupWithImage('.popup-image');
+
+const popupDelete = new PopupWithDeleteImage('.popup-delete', {
+  handleSubmit: () => {
+    //card
+    popupDelete.close();
+  }
+});
+
+avatarBox.addEventListener('click', () => {
+  popupAvatar.open();
+})
+
+function handleCardDelete() {
+  return popupDelete.open();
+}
 
 function handleCardClick(name, link) {
   return popupImage.handleOpenPopup({name,link}); //3
@@ -64,9 +112,16 @@ function addNameHandler (popup) {
   popup.open();
 };
 
+
+popupAvatar.setEventListeners();
+popupDelete.setEventListeners();
 popupRecording.setEventListeners();
 popupAddImage.setEventListeners();
 popupImage.setEventListeners();
+
+/* buttonTrash.addEventListener('click', () => {
+  popupDelete.open();
+}); */
 
 buttonOpenRecording.addEventListener('click', () => {
   addNameHandler(popupRecording);
@@ -86,6 +141,10 @@ const objectForValidation = {
 
 new FormValidator(objectForValidation, popupFormRecording).enableValidation();
 
+
 const validationFormAddImage = new FormValidator(objectForValidation, popupFormAdd);
 
 validationFormAddImage.enableValidation();
+
+const validationFormAvatar = new FormValidator(objectForValidation, popupFormAvatar);
+validationFormAvatar.enableValidation();

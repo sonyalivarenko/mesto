@@ -14,7 +14,9 @@
   <main class="content">
     <section class="profile">
       <div class="profile__info">
-        <img class="profile__img" src="<%=require('./images/Jacques-Yves_Cousteau.jpg')%>" alt="Твоя аватарка">
+        <div class="profile__photo">
+          <img class="profile__img" src="<%=require('./images/Jacques-Yves_Cousteau.jpg')%>" alt="Твоя аватарка">
+        </div>
         <div class="profile__id">
           <h1 class="profile__name">Жак-Ив Кусто</h1>
           <button class="profile__edit" type="button"></button>
@@ -34,7 +36,10 @@
       <button class="photo__button-delete"></button>
       <div class="photo__text">
         <h2 class="photo__name"></h2>
-        <button class="photo__heart" type="button"></button>
+        <div class="photo__fame">
+          <button class="photo__heart" type="button"></button>
+          <span class="photo__number-like">7</span>
+        </div>
       </div>
     </div>
   </template>
@@ -73,6 +78,26 @@
       <button class="popup__close popup-image__close" type="button"></button>
       <img class="popup-image__content" src="#" alt="">
       <p class="popup-image__name"></p>
+    </div>
+  </section>
+  <section class="popup popup-delete">
+    <div class="popup__container">
+      <button class="popup__close" type="button"></button>
+      <h2 class="popup__title popup-delete__title">Вы уверены?</h2>
+      <button class="popup__button" type="button">Да</button>
+    </div>
+  </section>
+  <section class="popup-avatar popup">
+    <div class="popup__container">
+      <button class="popup__close" type="button"></button>
+      <h2 class="popup__title">Обновить аватар</h2>
+      <form class="popup__form" name="create_avatar" novalidate>
+        <fieldset class="popup__data">
+          <input type="url" class="popup__item popup__item_value_avatar" id="popup__item-avatar" name="avatar" placeholder="Фото профиля" required>
+          <span class="popup__item-error popup__item-avatar-error"></span>
+          <button class="popup__button" type="submit">Сохранить</button>
+        </fieldset>
+      </form>
     </div>
   </section>
   <!-- <script type="module" src="./scripts/index.js"></script> -->

@@ -1,7 +1,8 @@
 export default class Card {
-  constructor (data, selector, handleCardClick) {
+  constructor (data, selector, handleCardClick, handleCardDelete) {
     this._selector = selector;
     this._handleCardClick = handleCardClick;
+    this._handleCardDelete = handleCardDelete;
     this._name = data.name;
     this._link = data.link;
 
@@ -24,11 +25,14 @@ export default class Card {
   };
 
   _setEventListeners() {
-    this._buttonDelete.addEventListener('click', () => this._removeImage());
+    this._buttonDelete.addEventListener('click', () => {
+      this._handleCardDelete();
+    });
+    //this._buttonDelete.addEventListener('click', () => this._removeImage());
     this._buttonLike.addEventListener('click', () => this._likeImage());
     this._photoImage.addEventListener('click', () => {
       this._handleCardClick(this._name, this._link)
-    });//7
+    });
   }
 
   _fillImage() {
