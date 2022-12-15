@@ -6,7 +6,7 @@ constructor({renderer}, selector) {
   }
 
   renderItems(renderedItems) {
-    renderedItems.forEach(this._renderer(item));
+    renderedItems.forEach(this._renderer);
   }
 
   addItem(element) {

@@ -5,8 +5,8 @@ import Section from '../components/Section.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import UserInfo from '../components/UserInfo.js';
 import PopupWithForm from '../components/PopupWithForm.js'; 
-import PopupWithDeleteImage from '../components/PopupWithDeleteImage';
-import Api from '../components/Api';
+import PopupWithDeleteImage from '../components/PopupWithDeleteImage.js';
+import Api from '../components/Api.js';
 import {
   buttonOpenRecording,
   popupFormRecording,
@@ -15,11 +15,7 @@ import {
   popupFormAdd,
   buttonAdd,
   avatarBox,
-  avatar,
   popupFormAvatar,
-  //authorization,
-  //cohortId,
-  initialCards
 } from '../utils/constants.js';
 
 const api = new Api({
@@ -30,67 +26,101 @@ const api = new Api({
   }
 });
 
-api.getInitialCards()
-  .then((result) => {
-    //res = JSON.parse(result);
-    photoList.renderItems(result);
-  })
-  .catch((err) => {
-    console.log(err); // выведем ошибку в консоль
-  });
-
 const photoList = new Section({
-  renderer: (element) => {
-    addImage(element, photoList)
+  renderer: (card) => {
+    addImage(card, photoList);
   }
 }, '.photo');
 
+const userInfo = new UserInfo({nameProfile: '.profile__name', jobProfile: '.profile__job', avatarProfile: '.profile__img'});
 
+let userId;
 
-const userInfo = new UserInfo({nameProfile: '.profile__name', jobProfile: '.profile__job'});
+Promise.all([api.getInitialCards(), api.getProfileInfo()])
+  .then(([cards, profileInfo]) => {
+    userId = profileInfo._id;
+    photoList.renderItems(cards);
+    userInfo.setUserInfo({nameInput: profileInfo.name, jobInput: profileInfo.about});
+    userInfo.setUserAvatar(profileInfo.avatar)
+  })
+  .catch((err) => {
+    console.log(err); 
+  }); 
 
 const popupRecording = new PopupWithForm('.popup-recording', {
   handleFormSubmit: (data) => {
-    userInfo.setUserInfo({nameInput: data.name,
-                          jobInput: data.job}); //5
-    popupRecording.close()
+    popupRecording.renderLoading(true);
+    api.editProfile(data)
+      .then((userData) => {
+        userInfo.setUserInfo({
+          nameInput: userData.name,
+          jobInput: userData.about});
+        popupRecording.close();
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+      .finally(() => {
+        popupRecording.renderLoading(false);
+      })
   }
 });
 
 const popupAvatar = new PopupWithForm('.popup-avatar', {
   handleFormSubmit: (data) => {
-    addAvatar({link: data.avatar});
-    popupAvatar.close();
-    validationFormAvatar.disableSubmitButton();
+    popupAvatar.renderLoading(true);
+    api.getNewAvatar(data)
+      .then((avatarLink) => {
+        userInfo.setUserAvatar(avatarLink.avatar);
+        popupAvatar.close();
+        validationFormAvatar.disableSubmitButton();
+        
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+      .finally(() => {
+        popupAvatar.renderLoading(false);
+      })
   }
 })
 
 const popupAddImage = new PopupWithForm('.popup-add-image', {
   handleFormSubmit: (data) => { 
-    addImage({
+    popupAddImage.renderLoading(true);
+    api.getNewCard({
       name: data.title,
-      link: data.url
-    }, photoList); 
-    popupAddImage.close();
-    validationFormAddImage.disableSubmitButton();
-  }
-});
+      link: data.url})
+      .then((card) => {
+          addImage(card, photoList);
+          popupAddImage.close();
+          validationFormAddImage.disableSubmitButton();
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+        .finally(() => {
+          popupAddImage.renderLoading(false);
+        })
+}});
 
-function addAvatar({link}) {
-  avatar.src = link; 
-}
-
-function addImage(element, photoList) {
-  const photoElement = new Card(element, '#photo-template', handleCardClick, handleCardDelete).generate();
+function addImage(card, photoList) {
+  const photoElement = new Card(card, userId, '#photo-template', handleCardClick, handleCardDelete, handleCardLike, handleCardLikeDelete).generate();
   photoList.addItem(photoElement);
 };
 
 const popupImage = new PopupWithImage('.popup-image');
 
 const popupDelete = new PopupWithDeleteImage('.popup-delete', {
-  handleSubmit: () => {
-    //card
-    popupDelete.close();
+  handleSubmit: (cardId, card) => {
+    api.deleteCard(cardId)
+      .then(() => {
+        card.removeImage();
+        popupDelete.close();
+      })
+      .catch((err) => {
+        console.log(err);
+      }); 
   }
 });
 
@@ -98,8 +128,28 @@ avatarBox.addEventListener('click', () => {
   popupAvatar.open();
 })
 
-function handleCardDelete() {
-  return popupDelete.open();
+function handleCardLike(cardId, card) {
+  api.likeCard(cardId)
+    .then((res) => {
+      card.likeImage(res);
+    }) 
+    .catch((err) => {
+      console.log(err);
+    }); 
+}
+
+function handleCardLikeDelete(cardId, card) {
+  api.deleteLike(cardId)
+    .then((res) => {
+      card.likeImage(res);
+    }) 
+    .catch((err) => {
+      console.log(err);
+    }); 
+}
+
+function handleCardDelete(cardId, card) {
+  return popupDelete.open(cardId, card);
 }
 
 function handleCardClick(name, link) {
@@ -118,10 +168,6 @@ popupDelete.setEventListeners();
 popupRecording.setEventListeners();
 popupAddImage.setEventListeners();
 popupImage.setEventListeners();
-
-/* buttonTrash.addEventListener('click', () => {
-  popupDelete.open();
-}); */
 
 buttonOpenRecording.addEventListener('click', () => {
   addNameHandler(popupRecording);

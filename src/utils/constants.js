@@ -8,14 +8,13 @@ export const jobInput = document.querySelector('.popup__item_value_job');
 export const popupFormAdd = popupAddCard.querySelector('.popup__form_add');
 export const buttonAdd = document.querySelector('.profile__button');
 export const avatarBox = document.querySelector('.profile__photo');
-export const avatar = document.querySelector('.profile__img');
 export const popupFormAvatar = popupAddAvatar.querySelector('.popup__form');
 
 //export const cohortId = 'cohort-56';
 //export const authorization = 'bc468cad-c22d-4fac-9dee-cf289e7f43c5';
 
 
-export const initialCards = [
+/* export const initialCards = [
   {
     name: 'Байкал',
     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
@@ -40,4 +39,4 @@ export const initialCards = [
     name: 'Архыз',
     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
   }
-];
+]; */
