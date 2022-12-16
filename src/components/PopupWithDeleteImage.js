@@ -4,12 +4,12 @@ export default class PopupWithDeleteImage extends Popup {
   constructor(popupSelector, {handleSubmit}) {
     super(popupSelector);
     this._handleSubmit = handleSubmit;
-    this._buttonDelete = this._popup.querySelector('.popup__button');
+    this._popupForm = this._popup.querySelector('.popup__form');
   }
 
   setEventListeners() {
     super.setEventListeners();
-    this._buttonDelete.addEventListener('click', (evt) => {
+    this._popupForm.addEventListener('submit', (evt) => {
       evt.preventDefault();
       this._handleSubmit(this._cardId, this._card);
     });

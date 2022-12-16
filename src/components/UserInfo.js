@@ -6,10 +6,8 @@ export default class UserInfo {
   }
 
   getUserInfo() {
-    this._nameInput = this._name.textContent;
-    this._jobInput = this._job.textContent;
-    return  {nameInput: this._nameInput, 
-             jobInput: this._jobInput}
+    return  {nameInput: this._name.textContent, 
+             jobInput: this._job.textContent}
   }
 
   setUserInfo({nameInput, jobInput}) {
@@ -19,5 +17,6 @@ export default class UserInfo {
 
   setUserAvatar(avatar) {
     this._avatar.src = avatar;
+    this._avatar.alt = 'Аватар профиля';
   }
 }

@@ -49,9 +49,9 @@
       <h2 class="popup__title">Редактировать профиль</h2>
       <form class="popup__form" name="recording" novalidate>
         <fieldset class="popup__data">
-          <input type="text" class="popup__item popup__item_value_name" id="popup__item-name" name="name" placeholder="Жак-Ив Кусто" required minlength="2" maxlength="40">
+          <input type="text" class="popup__item popup__item_value_name" id="popup__item-name" name="name" placeholder="Имя" required minlength="2" maxlength="40">
           <span class="popup__item-error popup__item-name-error"></span>
-          <input type="text" class="popup__item popup__item_value_job" id="popup__item-job" name="job" placeholder="Исследователь океана" required minlength="2" maxlength="200">
+          <input type="text" class="popup__item popup__item_value_job" id="popup__item-job" name="job" placeholder="Профессия" required minlength="2" maxlength="200">
           <span class="popup__item-error popup__item-job-error"></span>
           <button class="popup__button" type="submit">Сохранить</button>
         </fieldset>
@@ -84,7 +84,11 @@
     <div class="popup__container">
       <button class="popup__close" type="button"></button>
       <h2 class="popup__title popup-delete__title">Вы уверены?</h2>
-      <button class="popup__button" type="button">Да</button>
+      <form class="popup__form" name="popupImage_delete">
+        <fieldset class="popup__data">
+          <button class="popup__button" type="submit">Да</button>
+        </fieldset>
+      </form>
     </div>
   </section>
   <section class="popup-avatar popup">

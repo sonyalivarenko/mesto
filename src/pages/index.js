@@ -1,5 +1,5 @@
 import './index.css'
-import Card from '../components/card.js';
+import Card from '../components/Card.js';
 import FormValidator from '../components/FormValidator.js';
 import Section from '../components/Section.js';
 import PopupWithImage from '../components/PopupWithImage.js';
@@ -16,6 +16,8 @@ import {
   buttonAdd,
   avatarBox,
   popupFormAvatar,
+  configSelector,
+  objectForValidation
 } from '../utils/constants.js';
 
 const api = new Api({
@@ -30,9 +32,9 @@ const photoList = new Section({
   renderer: (card) => {
     addImage(card, photoList);
   }
-}, '.photo');
+}, configSelector.photoSelector);
 
-const userInfo = new UserInfo({nameProfile: '.profile__name', jobProfile: '.profile__job', avatarProfile: '.profile__img'});
+const userInfo = new UserInfo({nameProfile: configSelector.profileNameClass, jobProfile: configSelector.profileJobClass, avatarProfile: configSelector.profileImageClass});
 
 let userId;
 
@@ -47,7 +49,7 @@ Promise.all([api.getInitialCards(), api.getProfileInfo()])
     console.log(err); 
   }); 
 
-const popupRecording = new PopupWithForm('.popup-recording', {
+const popupRecording = new PopupWithForm(configSelector.popupRecordingSelector, {
   handleFormSubmit: (data) => {
     popupRecording.renderLoading(true);
     api.editProfile(data)
@@ -66,7 +68,7 @@ const popupRecording = new PopupWithForm('.popup-recording', {
   }
 });
 
-const popupAvatar = new PopupWithForm('.popup-avatar', {
+const popupAvatar = new PopupWithForm(configSelector.popupAvatarSelector, {
   handleFormSubmit: (data) => {
     popupAvatar.renderLoading(true);
     api.getNewAvatar(data)
@@ -85,7 +87,7 @@ const popupAvatar = new PopupWithForm('.popup-avatar', {
   }
 })
 
-const popupAddImage = new PopupWithForm('.popup-add-image', {
+const popupAddImage = new PopupWithForm(configSelector.popupAddImageSelector, {
   handleFormSubmit: (data) => { 
     popupAddImage.renderLoading(true);
     api.getNewCard({
@@ -105,13 +107,13 @@ const popupAddImage = new PopupWithForm('.popup-add-image', {
 }});
 
 function addImage(card, photoList) {
-  const photoElement = new Card(card, userId, '#photo-template', handleCardClick, handleCardDelete, handleCardLike, handleCardLikeDelete).generate();
+  const photoElement = new Card(card, userId, configSelector.photoTemplateSelector, handleCardClick, handleCardDelete, handleCardLike, handleCardLikeDelete).generate();
   photoList.addItem(photoElement);
 };
 
-const popupImage = new PopupWithImage('.popup-image');
+const popupImage = new PopupWithImage(configSelector.popupBigImageSelector);
 
-const popupDelete = new PopupWithDeleteImage('.popup-delete', {
+const popupDelete = new PopupWithDeleteImage(configSelector.popupDeleteImageSelector, {
   handleSubmit: (cardId, card) => {
     api.deleteCard(cardId)
       .then(() => {
@@ -153,12 +155,12 @@ function handleCardDelete(cardId, card) {
 }
 
 function handleCardClick(name, link) {
-  return popupImage.handleOpenPopup({name,link}); //3
+  return popupImage.handleOpenPopup({name,link});
 }
 
 function addNameHandler (popup) {
   nameInput.value = userInfo.getUserInfo().nameInput;
-  jobInput.value = userInfo.getUserInfo().jobInput;//4
+  jobInput.value = userInfo.getUserInfo().jobInput;
   popup.open();
 };
 
@@ -177,16 +179,7 @@ buttonAdd.addEventListener('click', () => {
   popupAddImage.open();
 });
 
-const objectForValidation = {
-  inputSelector: '.popup__item',
-  submitButtonSelector: '.popup__button',
-  inactiveButtonClass: 'popup__button_inactive',
-  inputErrorClass: 'popup__item_type_error',
-  errorClass: 'popup__item-error_active'
-};
-
 new FormValidator(objectForValidation, popupFormRecording).enableValidation();
-
 
 const validationFormAddImage = new FormValidator(objectForValidation, popupFormAdd);
 
